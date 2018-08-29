@@ -69,10 +69,11 @@ def mergeSort(arr,arr1,l,r):
 
 
 # Reading from file
-file = open('./data/imdbEr.txt','r')
+file = open('../data/imdbEr.txt','r')
 values = file.read().split('\n')
 file.close()
-values.remove('')
+if '' in values:
+    values.remove('')
 
 n=len(values)
 
@@ -84,25 +85,29 @@ indices = range(0,n)
 # Sorting indices array based on values
 mergeSort(values,indices,0,n-1)
 
-least2500 = indices[:2500]
-top2500 = indices[n-2500:]
 
-file = open('./data/selected-features-indices.txt','w')
-for i in range(0,2499):
+# Top and least
+tl = 2500
+least2500 = indices[:tl]
+top2500 = indices[n-tl:]
+
+file = open('selected-features-indices.txt','w')
+for i in range(0,tl-1):
 	file.write(str(least2500[i])+'\n')
 	file.write(str(top2500[i])+'\n')
-file.write(str(least2500[2499])+'\n')
-file.write(str(top2500[2499]))	
+file.write(str(least2500[tl-1])+'\n')
+file.write(str(top2500[tl-1]))	
 file.close()
 
 
 
 
 # Training data selection
-file = open('./data/train/labeledBow.feat','r')
-file1 = open('./data/trainingdata.txt','w')
+file = open('../data/train/labeledBow.feat','r')
+file1 = open('trainingdata.txt','w')
 data = file.read().split('\n')
-data.remove('')
+if '' in data:
+    data.remove('')
 file.close()
 pos=500
 neg=500
@@ -122,10 +127,11 @@ file1.close()
 
 
 # Testing data selection
-file = open('./data/test/labeledBow.feat','r')
-file1 = open('./data/testingdata.txt','w')
+file = open('../data/test/labeledBow.feat','r')
+file1 = open('testingdata.txt','w')
 data = file.read().split('\n')
-data.remove('')
+if '' in data:
+    data.remove('')
 file.close()
 pos=500
 neg=500
